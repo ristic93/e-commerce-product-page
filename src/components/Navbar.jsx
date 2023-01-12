@@ -4,24 +4,28 @@ import cart from "../assets/icon-cart.svg";
 import avatar from "../assets/image-avatar.png";
 import menu from "../assets/icon-menu.svg";
 import close from "../assets/icon-close.svg";
+import thumb1 from "../assets/image-product-1-thumbnail.jpg";
+import remove from "../assets/icon-delete.svg";
+import { Button } from "../common/Button";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(true);
+  const [toggleCart, setToggleCart] = useState(true);
 
   return (
     <>
-      <nav className="w-[90%] py-[25px] mx-auto md:border-b-2 flex justify-between items-center relative">
-        <div className="flex items-center justify-start space-x-12">
+      <nav className="w-[90%] py-[24px] mx-auto md:border-b-2 flex justify-between items-center">
+        <div className="flex justify-start items-center">
           <img
             src={menu}
             alt="hamburger"
             onClick={() => setToggle((prev) => !prev)}
-            className="md:hidden w-[20px]"
+            className="lg:hidden w-[20px]"
           />
 
-          <img src={logo} alt="logo" className="cursor-pointer" />
+          <img src={logo} alt="logo" className="cursor-pointer pl-4 lg" />
 
-          <ul className="hidden lg:flex align-center space-x-10">
+          <ul className="hidden lg:flex align-center space-x-10 pl-10 relative">
             <li>
               <a
                 href=""
@@ -66,50 +70,97 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center justify-start gap-8">
-          <a href="">
-            <img src={cart} alt="cart" />
-          </a>
+          <img
+            src={cart}
+            alt="cart"
+            onClick={() => setToggleCart((prev) => !prev)}
+            className="cursor-pointer"
+          />
           <img
             src={avatar}
             alt="avatar"
             className="w-12 border-transparent border-[4px] hover:border-orange hover:border-[4px] rounded-3xl cursor-pointer ease-in-out duration-300"
           />
         </div>
+
+        {/* cart menu */}
+
+        <div
+          className={`${
+            toggleCart ? "hidden" : "visible"
+          } w-[350px] bg-white shadow-2xl border-2 rounded-lg py-4 absolute top-20 right-3 md:right-16 px-5`}
+        >
+          <p className="pl-5 -mx-5 font-[700]">Cart</p>
+          <hr className="my-4 bg-lightGrayishBlue h-1" />
+          <div className="flex justify-between mb-4">
+            <img src={thumb1} alt="cart-img" className="w-[50px] rounded-lg " />
+            <div className="">
+              <p className="text-darkGrayishBlue">
+                Fall limited edition sneakers
+              </p>
+              <span className="text-darkGrayishBlue mr-2">$125.00</span>
+              <span className="text-darkGrayishBlue mr-2">x</span>
+              <span className="text-darkGrayishBlue mr-2">1</span>
+              <span className="font-[700]">$125.00</span>
+            </div>
+            <div className="flex items-center scale-[1.2] hover:scale-[1.6] cursor-pointer transition-all duration-300">
+              <img src={remove} alt="" />
+            </div>
+          </div>
+          <Button>Check out</Button>
+        </div>
       </nav>
+
+      {/* hamburger menu */}
 
       <ul
         className={`${
           toggle ? "flex flex-col" : "hidden"
-        }  md:hidden bg-white fixed top-0 bottom-0 left-0 w-[50%] pt-[40px] px-8 space-y-6 text-[18px]`}
+        }  lg:hidden bg-white fixed top-0 bottom-0 left-0 w-[60%] pt-[40px] px-8 space-y-6 text-[18px]`}
       >
         <img
           src={close}
           alt="hamburger"
           onClick={() => setToggle((prev) => !prev)}
-          className="md:hidden w-[20px]"
+          className="lg:hidden w-[20px]"
         />
         <li>
-          <a href="#" className="font-bold hover:text-darkGrayishBlue transition-all duration-300">
+          <a
+            href="#"
+            className="font-bold hover:text-darkGrayishBlue transition-all duration-300"
+          >
             Collection
           </a>
         </li>
         <li>
-          <a href="#" className="font-bold hover:text-darkGrayishBlue transition-all duration-300">
+          <a
+            href="#"
+            className="font-bold hover:text-darkGrayishBlue transition-all duration-300"
+          >
             Men
           </a>
         </li>
         <li>
-          <a href="#" className="font-bold hover:text-darkGrayishBlue transition-all duration-300">
+          <a
+            href="#"
+            className="font-bold hover:text-darkGrayishBlue transition-all duration-300"
+          >
             Women
           </a>
         </li>
         <li>
-          <a href="#" className="font-bold hover:text-darkGrayishBlue transition-all duration-300">
+          <a
+            href="#"
+            className="font-bold hover:text-darkGrayishBlue transition-all duration-300"
+          >
             About
           </a>
         </li>
         <li>
-          <a href="#" className="font-bold hover:text-darkGrayishBlue transition-all duration-300">
+          <a
+            href="#"
+            className="font-bold hover:text-darkGrayishBlue transition-all duration-300"
+          >
             Contact
           </a>
         </li>
