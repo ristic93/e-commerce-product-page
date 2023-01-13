@@ -1,24 +1,33 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { data } from "../constants/data";
 import minus from "../assets/icon-minus.svg/";
 import plus from "../assets/icon-plus.svg/";
 import { Button } from "../common/Button";
 import cartIcon from "../assets/icon-cart.svg/";
-
-// import cartIcon from "../assets/icon-cart.svg/";
+import CartContext from "../context/CartContext";
 
 const Product = () => {
   const [products] = useState(data);
   const [value, setValue] = useState(0);
-  const [amount, setAmount] = useState(0);
 
   const { mainImage } = products[value];
 
   const handleMinus = () => {
-    setAmount(amount - 1);
-    if (amount <= 0) {
-      setAmount(0);
+    setItemCounter(itemCounter - 1);
+    if (itemCounter <= 0) {
+      setItemCounter(0);
     }
+  };
+
+  const { price, itemCounter, setItemCounter, setAddInCart } =
+    useContext(CartContext);
+  const fixedPrice = price.toFixed(2);
+
+  const addedInCart = () => {
+    if (itemCounter > 0) {
+      setAddInCart(() => 0 + itemCounter);
+    }
+    setItemCounter(0);
   };
 
   return (
@@ -69,7 +78,7 @@ const Product = () => {
 
         <div className="flex flex-wrap items-center justify-between lg:flex-col lg:items-start lg:gap-2">
           <ul className="flex items-center gap-5">
-            <li className="font-[700] text-3xl">$125.00</li>
+            <li className="font-[700] text-3xl">${fixedPrice}</li>
             <li className="bg-paleOrange text-orange font-[700] py-1 px-2 rounded-lg hover:scale-[1.5] ease-in-out duration-700 cursor-help">
               50%
             </li>
@@ -86,9 +95,9 @@ const Product = () => {
             >
               <img src={minus} alt="" className="hover:scale-[1.4] w-[15px]" />
             </li>
-            <li className="font-[700]">{amount}</li>
+            <li className="font-[700]">{itemCounter}</li>
             <li
-              onClick={() => setAmount(amount + 1)}
+              onClick={() => setItemCounter(itemCounter + 1)}
               className="hover:opacity-60 cursor-pointer"
             >
               <img src={plus} alt="" className="hover:scale-[1.4] w-[15px]" />
@@ -96,7 +105,7 @@ const Product = () => {
           </ul>
 
           <div className="lg:flex-1">
-            <Button>
+            <Button onClick={addedInCart}>
               <img src={cartIcon} alt="cart" /> Add to cart
             </Button>
           </div>
