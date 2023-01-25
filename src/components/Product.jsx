@@ -2,15 +2,23 @@ import React, { useContext, useState } from "react";
 import { data } from "../constants/data";
 import minus from "../assets/icon-minus.svg/";
 import plus from "../assets/icon-plus.svg/";
+import prevIcon from "../assets/icon-previous.svg";
+import nextIcon from "../assets/icon-next.svg";
 import { Button } from "../common/Button";
 import cartIcon from "../assets/icon-cart.svg/";
 import CartContext from "../context/CartContext";
+import Lightbox from "./Lightbox";
 
 const Product = () => {
   const [products] = useState(data);
   const [value, setValue] = useState(0);
+  const [modal, setModal] = useState(true);
 
   const { mainImage } = products[value];
+
+  const { price, itemCounter, setItemCounter, setAddInCart } =
+    useContext(CartContext);
+  const fixedPrice = price.toFixed(2);
 
   const handleMinus = () => {
     setItemCounter(itemCounter - 1);
@@ -19,25 +27,55 @@ const Product = () => {
     }
   };
 
-  const { price, itemCounter, setItemCounter, setAddInCart } =
-    useContext(CartContext);
-  const fixedPrice = price.toFixed(2);
-
   const addedInCart = () => {
     if (itemCounter > 0) {
-      setAddInCart(() => 0 + itemCounter);
+      setAddInCart((prev) => prev + itemCounter);
     }
     setItemCounter(0);
   };
+
+  const toggleModal = () => {
+    setModal((prev) => !prev);
+  };
+
+  const previousSlide = () => {
+    if (value === 0) {
+      setValue(value);
+    } else {
+      setValue((prev) => prev - 1);
+    }
+  };
+
+  const nextSlide = () => {
+    if (value === products.length - 1) {
+      setValue(products.length - 1);
+    } else {
+      setValue((prev) => prev + 1);
+    }
+  };
+
 
   return (
     <main className="w-[100%] md:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 lg:place-items-center lg:py-10">
       <article className="flex flex-col gap-6">
         <div className="overflow-hidden lg:rounded-2xl">
           <img
-            className="cursor-pointer w-full mx-auto h-[500px] lg:rounded-2xl"
+            className="cursor-pointer w-full mx-auto h-[350px] md:h-[500px] lg:rounded-2xl"
             src={mainImage}
-            alt="snekers-photo"
+            alt="sneakers-photo"
+            onClick={toggleModal}
+          />
+           <img
+            src={prevIcon}
+            alt="prev-icon"
+            className="bg-white p-4 rounded-full absolute top-[50%] -translate-y-[50%] left-5 cursor-pointer hover:scale-[1.1] transition-all duration-300 lg:hidden"
+            onClick={previousSlide}
+          />
+          <img
+            src={nextIcon}
+            alt="next-icon"
+            className="bg-white p-4 rounded-full absolute top-[50%] -translate-y-[50%] right-5 cursor-pointer hover:scale-[1.1] transition-all duration-300 lg:hidden"
+            onClick={nextSlide}
           />
         </div>
         <div className="hidden lg:flex justify-between max-w-xl">
@@ -52,7 +90,7 @@ const Product = () => {
               >
                 <img
                   className={`${
-                    idx === value && "border-orange opacity-40"
+                    idx === value && "opacity-40"
                   } w-full cursor-pointer rounded-xl ease-in-out duration-700 hover:scale-125 hover:opacity-50`}
                   src={item.thumbnail}
                   alt="product-photo"
@@ -62,6 +100,8 @@ const Product = () => {
           })}
         </div>
       </article>
+
+      <Lightbox products={products} modal={modal} toggleModal={toggleModal} value={value} setValue={setValue}/>
 
       <article className="py-[40px] px-10">
         <h2 className="text-orange uppercase font-[700] tracking-wide mb-10">

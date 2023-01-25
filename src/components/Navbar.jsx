@@ -10,7 +10,7 @@ import { Button } from "../common/Button";
 import CartContext from "../context/CartContext";
 
 const Navbar = () => {
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
   const [toggleCart, setToggleCart] = useState(true);
 
   const { price, addInCart, setAddInCart } = useContext(CartContext);
@@ -27,19 +27,19 @@ const Navbar = () => {
   return (
     <>
       <nav className="w-[90%] py-[24px] mx-auto md:border-b-2 flex justify-between items-center">
-        <div className="flex justify-start items-center">
+        <div className="flex justify-start items-center relative">
           {/* toggle hamburger */}
 
           <img
             src={menu}
             alt="hamburger"
             onClick={() => setToggle((prev) => !prev)}
-            className="lg:hidden w-[20px]"
+            className="lg:hidden w-[20px] cursor-pointer"
           />
 
           <img src={logo} alt="logo" className="cursor-pointer pl-4 lg" />
 
-          <ul className="hidden lg:flex align-center space-x-10 pl-10 relative">
+          <ul className="hidden lg:flex align-center space-x-10 pl-10">
             <li>
               <a
                 href=""
@@ -157,13 +157,13 @@ const Navbar = () => {
       <ul
         className={`${
           toggle ? "flex flex-col" : "hidden"
-        }  lg:hidden bg-white fixed top-0 bottom-0 left-0 w-[60%] pt-[40px] px-8 space-y-6 text-[18px]`}
+        }  lg:hidden bg-white fixed top-0 bottom-0 left-0 w-[60%] pt-[40px] px-8 space-y-6 text-[18px] z-30`}
       >
         <img
           src={close}
           alt="hamburger"
           onClick={() => setToggle((prev) => !prev)}
-          className="lg:hidden w-[20px]"
+          className="lg:hidden w-[20px] cursor-pointer"
         />
         <li>
           <a
