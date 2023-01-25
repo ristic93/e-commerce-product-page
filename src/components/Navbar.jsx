@@ -112,7 +112,7 @@ const Navbar = () => {
           <div
             className={`${
               toggleCart ? "hidden" : "visible"
-            } w-[350px] bg-white shadow-2xl border-2 rounded-lg py-4 absolute top-20 right-3 md:right-16 px-5`}
+            } w-[350px] bg-white shadow-2xl border-2 rounded-lg py-4 absolute top-20 right-3 md:right-16 px-5 z-30`}
           >
             <p className="pl-5 -mx-5 font-[700]">Cart</p>
             <hr className="my-4 bg-lightGrayishBlue h-1" />

@@ -90,7 +90,7 @@ const Product = () => {
               >
                 <img
                   className={`${
-                    idx === value && "opacity-40"
+                    idx === value && "border-orange opacity-40"
                   } w-full cursor-pointer rounded-xl ease-in-out duration-700 hover:scale-125 hover:opacity-50`}
                   src={item.thumbnail}
                   alt="product-photo"
