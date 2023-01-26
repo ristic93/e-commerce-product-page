@@ -62,7 +62,7 @@ const Lightbox = ({ products, modal, toggleModal }) => {
                 key={item.id}
                 onClick={() => setValue(idx)}
                 className={`${
-                  idx === value && "border-[4px] border-orange"
+                  idx === value && "border-[4px] border-orangeDark"
                 } border-[4px] border-transparent rounded-2xl overflow-hidden cursor-pointer`}
               >
                 <img

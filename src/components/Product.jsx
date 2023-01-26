@@ -58,7 +58,7 @@ const Product = () => {
   return (
     <main className="w-[100%] md:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 lg:place-items-center lg:py-10">
       <article className="flex flex-col gap-6">
-        <div className="overflow-hidden lg:rounded-2xl">
+        <div className="overflow-hidden lg:rounded-2xl relative">
           <img
             className="cursor-pointer w-full mx-auto h-[350px] md:h-[500px] lg:rounded-2xl"
             src={mainImage}
@@ -85,12 +85,12 @@ const Product = () => {
                 key={item.id}
                 onClick={() => setValue(idx)}
                 className={`${
-                  idx === value && "border-[4px] border-orange"
+                  idx === value && "border-[4px] border-orangeDark"
                 } border-[4px] border-transparent rounded-2xl overflow-hidden cursor-pointer`}
               >
                 <img
                   className={`${
-                    idx === value && "border-orange opacity-40"
+                    idx === value && "border-orange"
                   } w-full cursor-pointer rounded-xl ease-in-out duration-700 hover:scale-125 hover:opacity-50`}
                   src={item.thumbnail}
                   alt="product-photo"
@@ -101,7 +101,7 @@ const Product = () => {
         </div>
       </article>
 
-      <Lightbox products={products} modal={modal} toggleModal={toggleModal} value={value} setValue={setValue}/>
+      <Lightbox products={products} modal={modal} toggleModal={toggleModal} />
 
       <article className="py-[40px] px-10">
         <h2 className="text-orange uppercase font-[700] tracking-wide mb-10">
